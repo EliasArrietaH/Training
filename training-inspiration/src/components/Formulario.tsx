@@ -2,6 +2,7 @@
 import { API } from "@/services/config";
 import Link from "next/link";
 import React, { useState } from "react";
+import { toast} from "sonner";
 
 const Formulario = () => {
   const [form, setForm] = useState({
@@ -91,7 +92,7 @@ const Formulario = () => {
         return;
       }
 
-      alert("✅ Formulario enviado correctamente"); //! Success message
+      toast.success("✅ Formulario enviado correctamente"); //! Success message
       console.log(form);
 
       setForm({
@@ -103,7 +104,7 @@ const Formulario = () => {
       });
     } catch (error) {
       console.error("Error al enviar formulario:", error);
-      alert("Error al conectar con el servidor"); //! Success message
+      toast.error('Error al conectar con el servidor')  ; //! Error message
     }
   };
 
