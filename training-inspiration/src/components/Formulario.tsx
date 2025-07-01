@@ -1,4 +1,5 @@
 "use client";
+import { API } from "@/services/config";
 import React, { useState } from "react";
 
 const Formulario = () => {
@@ -75,7 +76,7 @@ const Formulario = () => {
     if (!validate()) return;
 
     try {
-      const response = await fetch("http://localhost:3001/usuarios/registrar", {
+      const response = await fetch(`${API}/usuarios/registrar`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

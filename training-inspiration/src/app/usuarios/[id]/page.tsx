@@ -1,13 +1,17 @@
 import { notFound } from "next/navigation";
-import usuarios from "@/utils/dataMock";
-import { IUser } from "@/interfaces/users";
+// import usuarios from "@/utils/dataMock";
+//import { IUser } from "@/interfaces/users";
+import { getUserId } from "@/services/userService";
 
 type Props = {
   params: { id: string };
 };
 
-export default function DetalleUsuario({ params }: Props) {
-  const usuario: IUser | undefined = usuarios.find((u) => u.id === params.id);
+export default async function DetalleUsuario({ params }: Props) {
+  const usuario = await getUserId(params.id);
+
+  // const usuario: IUser | undefined = usuarios.find((u) => u.id === params.id);
+  // console.log("usuario", usuario);
 
   if (!usuario) return notFound();
 

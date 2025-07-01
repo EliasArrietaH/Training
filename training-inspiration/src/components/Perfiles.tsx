@@ -1,12 +1,22 @@
 "use client";
-import React from "react";
-import usuarios from "@/utils/dataMock";
+import React, { useEffect } from "react";
+//import usuarios from "@/utils/dataMock";
 import Link from "next/link";
 import { IUser } from "@/interfaces/users";
-// import { getUsers } from "@/services/userService";
+import { getUsers } from "@/services/userService";
 
 function Perfiles() {
+  const [usuarios, setUsuarios] = React.useState<IUser[]>([]);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await getUsers();
+      setUsuarios(response);
+    };
+    fetchUsers();
+  }, []);
   // const usuariosBack = getUsers(); //! Back
+  // console.log("usuariosBack", usuariosBack);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 p-10">
       <h1 className="text-3xl font-bold text-center text-purple-700 mb-8">
