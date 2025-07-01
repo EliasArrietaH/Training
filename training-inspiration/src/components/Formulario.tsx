@@ -4,6 +4,7 @@ import React, { useState } from "react";
 const Formulario = () => {
   const [form, setForm] = useState({
     nombre: "",
+    edad: "",
     ciudad: "",
     especialidad: "",
     email: "",
@@ -11,6 +12,7 @@ const Formulario = () => {
 
   const [errors, setErrors] = useState({
     nombre: "",
+    edad: "",
     ciudad: "",
     especialidad: "",
     email: "",
@@ -28,6 +30,7 @@ const Formulario = () => {
   const validate = () => {
     const newErrors: typeof errors = {
       nombre: "",
+      edad: "",
       ciudad: "",
       especialidad: "",
       email: "",
@@ -36,6 +39,14 @@ const Formulario = () => {
 
     if (!form.nombre.trim()) {
       newErrors.nombre = "El nombre es obligatorio";
+      isValid = false;
+    }
+    if (
+      !form.edad.trim() ||
+      isNaN(Number(form.edad)) ||
+      Number(form.edad) <= 0
+    ) {
+      newErrors.edad = "La edad es obligatoria y debe ser un número positivo";
       isValid = false;
     }
     if (!form.ciudad.trim()) {
@@ -58,13 +69,39 @@ const Formulario = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) {
-      alert("Formulario enviado correctamente ✅");
+
+    if (!validate()) return;
+
+    try {
+      const response = await fetch("http://localhost:3001/usuarios/registrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        alert("Error al enviar: " + error.message);
+        return;
+      }
+
+      alert("✅ Formulario enviado correctamente"); //! Success message
       console.log(form);
-      // backend
-      setForm({ nombre: "", ciudad: "", especialidad: "", email: "" });
+
+      setForm({
+        nombre: "",
+        edad: "",
+        ciudad: "",
+        especialidad: "",
+        email: "",
+      });
+    } catch (error) {
+      console.error("Error al enviar formulario:", error);
+      alert("Error al conectar con el servidor"); //! Success message
     }
   };
 
@@ -84,13 +121,27 @@ const Formulario = () => {
             name="nombre"
             value={form.nombre}
             onChange={handleChange}
-            className={`mt-1 block w-full border ${
+            className={`mt-1 block w-full text-black border  ${
               errors.nombre ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2`}
           />
           {errors.nombre && (
             <p className="text-red-500 text-sm">{errors.nombre}</p>
           )}
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Edad
+          </label>
+          <input
+            name="edad"
+            value={form.edad}
+            onChange={handleChange}
+            className={`mt-1 block w-full text-black border ${
+              errors.edad ? "border-red-500" : "border-gray-300"
+            } rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2`}
+          />
+          {errors.edad && <p className="text-red-500 text-sm">{errors.edad}</p>}
         </div>
 
         <div>
@@ -101,7 +152,7 @@ const Formulario = () => {
             name="ciudad"
             value={form.ciudad}
             onChange={handleChange}
-            className={`mt-1 block w-full border ${
+            className={`mt-1 block w-full text-black border ${
               errors.ciudad ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2`}
           />
@@ -118,7 +169,7 @@ const Formulario = () => {
             name="especialidad"
             value={form.especialidad}
             onChange={handleChange}
-            className={`mt-1 block w-full border ${
+            className={`mt-1 block w-full text-black border ${
               errors.especialidad ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2`}
           />
@@ -135,7 +186,7 @@ const Formulario = () => {
             name="email"
             value={form.email}
             onChange={handleChange}
-            className={`mt-1 block w-full border ${
+            className={`mt-1 block w-full text-black border ${
               errors.email ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 p-2`}
           />
@@ -144,7 +195,6 @@ const Formulario = () => {
           )}
         </div>
 
-        {/* Botón */}
         <button
           type="submit"
           className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition"

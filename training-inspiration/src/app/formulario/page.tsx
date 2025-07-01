@@ -1,8 +1,7 @@
 import Formulario from "@/components/Formulario";
-import React from "react";
 
-function page() {
+function pageForm() {
   return <Formulario />;
 }
 
-export default page;
+export default pageForm;
