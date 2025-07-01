@@ -24,13 +24,13 @@ function Perfiles() {
       <div className="flex justify-end text-center mt-10 gap-2">
         <Link
           href="/"
-          className="inline-block bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition"
+          className=" bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition"
         >
           Volver al Inicio
         </Link>
         <Link
           href="/formulario"
-          className="inline-block bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition"
+          className=" bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition"
         >
           Crear Perfil
         </Link>

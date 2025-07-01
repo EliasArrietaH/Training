@@ -19,7 +19,7 @@ const DetallePerfiles = ({ usuario }: { usuario: IUser }) => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full">
+    <div className="bg-gradient-to-br from-blue-50 to-purple-100 p-8 rounded-2xl shadow-xl max-w-md w-full">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-purple-700 mb-4">
           {usuario.nombre}
