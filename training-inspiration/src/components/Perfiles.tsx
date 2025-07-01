@@ -43,6 +43,14 @@ function Perfiles() {
           )
         )}
       </div>
+      <div className="mt-4">
+        <Link
+          href="/formulario"
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition"
+        >
+          Crear Perfil
+        </Link>
+      </div>
     </div>
   );
 }

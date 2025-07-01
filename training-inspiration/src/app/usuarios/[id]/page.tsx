@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 // import usuarios from "@/utils/dataMock";
 //import { IUser } from "@/interfaces/users";
 import { getUserId } from "@/services/userService";
+import Link from "next/link";
 
 type Props = {
   params: { id: string };
@@ -38,6 +39,14 @@ export default async function DetalleUsuario({ params }: Props) {
             Eliminar
           </button>
         </p>
+      </div>
+      <div className="mt-4">
+        <Link
+          href="/perfiles"
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition"
+        >
+          Volver a Perfiles
+        </Link>
       </div>
     </div>
   );
