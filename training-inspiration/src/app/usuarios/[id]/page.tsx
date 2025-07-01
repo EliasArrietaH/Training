@@ -1,8 +1,11 @@
 import { notFound } from "next/navigation";
 // import usuarios from "@/utils/dataMock";
 //import { IUser } from "@/interfaces/users";
-import { getUserId } from "@/services/userService";
+import { deleteUser, getUserId } from "@/services/userService";
 import Link from "next/link";
+import Image from "next/image";
+import { toast } from "sonner";
+import DetallePerfiles from "@/components/DetallePerfiles";
 
 type Props = {
   params: { id: string };
@@ -18,34 +21,13 @@ export default async function DetalleUsuario({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 p-10 flex flex-col items-center">
-      <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full">
-        <h2 className="text-2xl font-bold text-purple-700 mb-4">
-          {usuario.nombre}
-        </h2>
-        <p className="text-gray-700 mb-2">
-          <strong>Edad:</strong> {usuario.edad}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <strong>Ciudad:</strong> {usuario.ciudad}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <strong>Especialidad:</strong> {usuario.especialidad}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <strong>Email:</strong> {usuario.email}
-        </p>
-        <p className="text-gray-700 mb-2">
-          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-            Eliminar
-          </button>
-        </p>
-      </div>
-      <div className="mt-4">
+      <DetallePerfiles usuario={usuario} />
+      <div className="mt-8">
         <Link
-          href="/perfiles"
+          href="/usuarios"
           className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition"
         >
-          Volver a Perfiles
+          Volver a Usuarios
         </Link>
       </div>
     </div>

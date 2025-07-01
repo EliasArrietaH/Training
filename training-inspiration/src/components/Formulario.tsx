@@ -2,7 +2,7 @@
 import { API } from "@/services/config";
 import Link from "next/link";
 import React, { useState } from "react";
-import { toast} from "sonner";
+import { toast } from "sonner";
 
 const Formulario = () => {
   const [form, setForm] = useState({
@@ -104,7 +104,7 @@ const Formulario = () => {
       });
     } catch (error) {
       console.error("Error al enviar formulario:", error);
-      toast.error('Error al conectar con el servidor')  ; //! Error message
+      toast.error("Error al conectar con el servidor"); //! Error message
     }
   };
 
@@ -208,10 +208,10 @@ const Formulario = () => {
 
       <div className="mt-4">
         <Link
-          href="/perfiles"
+          href="/usuarios"
           className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition"
         >
-          Ver perfiles
+          Ver Usuarios
         </Link>
       </div>
     </div>

@@ -20,12 +20,18 @@ function Perfiles() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 p-10">
-      <div className="flex justify-end text-center mt-10">
+      <div className="flex justify-end text-center mt-10 gap-2">
         <Link
           href="/"
           className="inline-block bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition"
         >
           Volver al Inicio
+        </Link>
+        <Link
+          href="/formulario"
+          className="inline-block bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition"
+        >
+          Crear Perfil
         </Link>
       </div>
       <h1 className="text-3xl font-bold text-center text-purple-700 mb-8">
@@ -60,14 +66,7 @@ function Perfiles() {
           )
         )}
       </div>
-      <div className="mt-4">
-        <Link
-          href="/formulario"
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition"
-        >
-          Crear Perfil
-        </Link>
-      </div>
+      <div className="mt-4"></div>
     </div>
   );
 }

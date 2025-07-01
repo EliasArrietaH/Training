@@ -28,3 +28,16 @@ export async function getUserId(id: string) {
     throw new Error(`Error al obtener el usuario ${error}`);
   }
 }
+
+export async function deleteUser(id: string) {
+  try {
+    const res = await fetch(`${API}/usuarios/${id}`, {
+      method: "DELETE",
+      next: { revalidate: 3600 },
+      cache: "no-cache",
+    });
+    return await res.json();
+  } catch (error) {
+    throw new Error(`Error al obtener el usuario ${error}`);
+  }
+}
