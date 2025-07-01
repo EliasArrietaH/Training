@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-//import usuarios from "@/utils/dataMock";
 import Link from "next/link";
 import { IUser } from "@/interfaces/users";
 import Image from "next/image";
@@ -8,15 +7,17 @@ import { getUsers } from "@/services/userService";
 
 function Perfiles() {
   const [usuarios, setUsuarios] = React.useState<IUser[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
   useEffect(() => {
     const fetchUsers = async () => {
+      setLoading(true);
       const response = await getUsers();
       setUsuarios(response);
+      setLoading(false);
     };
     fetchUsers();
   }, []);
-  // const usuariosBack = getUsers(); //! Back
-  // console.log("usuariosBack", usuariosBack);
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 p-10">
@@ -38,10 +39,22 @@ function Perfiles() {
         Perfiles de Usuarios
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 px-10 mx-24">
-        {usuarios.map(
-          (
-            user: IUser //! {usuariosBack.map((user: IUser)... Cuando esté el back
-          ) => (
+        {loading ? (
+          <div className="col-span-2 flex justify-center items-center h-40">
+            <span className="text-purple-600 text-xl font-semibold animate-pulse">
+              Cargando usuarios...
+            </span>
+          </div>
+        ) : usuarios.length === 0 ? (
+          <div className="col-span-2 flex justify-center">
+            <div className="flex w-full bg-white p-6 rounded-2xl shadow-lg border border-purple-100 items-center">
+              <span className="text-gray-700 text-lg text-center">
+                No hay usuarios disponibles.
+              </span>
+            </div>
+          </div>
+        ) : (
+          usuarios.map((user: IUser) => (
             <Link href={`/usuarios/${user.id}`} key={user.id}>
               <div className="flex bg-white p-3 rounded-2xl shadow-lg hover:shadow-2xl transition border border-purple-100 cursor-pointer">
                 <div className="flex items-center  ml-2 mr-6">
@@ -63,7 +76,7 @@ function Perfiles() {
                 </div>
               </div>
             </Link>
-          )
+          ))
         )}
       </div>
       <div className="mt-4"></div>
