@@ -1,6 +1,8 @@
 "use client";
+import { API } from "@/services/config";
+import Link from "next/link";
 import React, { useState } from "react";
-import { toast} from "sonner";
+import { toast } from "sonner";
 
 const Formulario = () => {
   const [form, setForm] = useState({
@@ -76,7 +78,7 @@ const Formulario = () => {
     if (!validate()) return;
 
     try {
-      const response = await fetch("http://localhost:3001/usuarios/registrar", {
+      const response = await fetch(`${API}/usuarios/registrar`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,12 +104,12 @@ const Formulario = () => {
       });
     } catch (error) {
       console.error("Error al enviar formulario:", error);
-      toast.error('Error al conectar con el servidor')  ; //! Error message
+      toast.error("Error al conectar con el servidor"); //! Error message
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 p-4">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md space-y-4"
@@ -203,6 +205,15 @@ const Formulario = () => {
           Enviar
         </button>
       </form>
+
+      <div className="mt-4">
+        <Link
+          href="/usuarios"
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition"
+        >
+          Ver Usuarios
+        </Link>
+      </div>
     </div>
   );
 };

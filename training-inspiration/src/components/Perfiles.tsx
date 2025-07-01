@@ -1,23 +1,39 @@
 "use client";
-import React from "react";
-import usuarios from "@/utils/dataMock";
+import React, { useEffect } from "react";
+//import usuarios from "@/utils/dataMock";
 import Link from "next/link";
 import { IUser } from "@/interfaces/users";
 import Image from "next/image";
-// import { getUsers } from "@/services/userService";
+import { getUsers } from "@/services/userService";
 
 function Perfiles() {
+  const [usuarios, setUsuarios] = React.useState<IUser[]>([]);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await getUsers();
+      setUsuarios(response);
+    };
+    fetchUsers();
+  }, []);
   // const usuariosBack = getUsers(); //! Back
+  // console.log("usuariosBack", usuariosBack);
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 p-10">
-      <div className="flex justify-end text-center mt-10">
+      <div className="flex justify-end text-center mt-10 gap-2">
         <Link
           href="/"
           className="inline-block bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition"
         >
           Volver al Inicio
         </Link>
-        </div>
+        <Link
+          href="/formulario"
+          className="inline-block bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition"
+        >
+          Crear Perfil
+        </Link>
+      </div>
       <h1 className="text-3xl font-bold text-center text-purple-700 mb-8">
         Perfiles de Usuarios
       </h1>
@@ -50,6 +66,7 @@ function Perfiles() {
           )
         )}
       </div>
+      <div className="mt-4"></div>
     </div>
   );
 }
